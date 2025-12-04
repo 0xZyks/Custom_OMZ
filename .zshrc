@@ -163,18 +163,16 @@ export MAIL="tsignori@student.42perpignan.fr"
 export PATH="$PATH:/home/zyks/.local/bin"
 
 # Clear après CTRL-C
-# Ctrl-C quand tu es au prompt : clear sans ligne vide
-_clean_ctrl_c_widget() {
-    # On nettoie la ligne en cours (si tu avais commencé à taper un truc)
-    BUFFER=""
-    clear
+TRPINT() {
+	BUFFER = ""
+	clear
+	return 130
 }
-#zle -N _clean_ctrl_c_widget
-#bindkey '^C' _clean_ctrl_c_widget
 
+# Clear apres CD
 _chpwd_last="$PWD"
 chpwd() {
-    if [[ "$PWD" != "$_chpwd_last" ]]; then
+    if [[ "$PWD" != "" ]]; then
         clear
         _chpwd_last="$PWD"
     fi
