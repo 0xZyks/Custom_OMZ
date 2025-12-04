@@ -1,1 +1,181 @@
-/home/zyks/.zshrc
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
+
+# Path to your Oh My Zsh installation.
+export ZSH="$HOME/.oh-my-zsh"
+
+ZSH_THEME="mortalscumbag"
+
+plugins=(git)
+
+source $ZSH/oh-my-zsh.sh
+setopt PROMPT_SUBST
+
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+alias zshcfg="nvim ~/.zshrc"
+alias c="clear"
+alias nv="nvim"
+alias n.="nvim ."
+alias ccf="cc -Wall -Wextra -Werror -o exe"
+alias gpt="tgpt"
+alias norminette="norminette -R CheckDefine"
+alias l="exa -l --icons"
+alias la="exa -la --icons"
+alias lt="exa --icons --tree"
+
+# COLORS
+
+ORANGE=$'%{\e[38;2;240;170;90m%}'
+WHITE=$'%{\e[38;2;255;255;255m%}'
+BLUE=$'%{\e[38;2;149;176;255m%}'
+AQUA=$'%{\e[38;2;110;140;240m%}'
+RESET="%{$reset_color%}"
+GIT_USER_COLOR=${BLUE}
+GIT_REPO_COLOR=${AQUA}
+GIT_BRANCH_COLOR=$'%{\e[38;2;240;170;90m%}'
+
+UNDER=$'%{\e[4m%}'
+NO_UNDER=$'%{\e[24m%}'
+
+
+
+# -- DISPLAY BASIC PROMPT
+autoload -U colors && colors
+
+## === CUSTOM PROMPT ===
+
+# Ligne heure
+local TIMEFMT="${ORANGE}[${GIT_USER_COLOR}%D{%H:%M:%S}${ORANGE}]${RESET}"
+
+# Short Path
+shorten_path() {
+    local path="$PWD"
+    local display prefix rest
+
+    # 1. Construire un chemin "affichable" avec ~ si on est dans $HOME
+    if [[ "$path" == "$HOME" ]]; then
+        print -r -- "~"
+        return
+    elif [[ "$path" == $HOME/* ]]; then
+        # ex: /home/zyks/Documents/... -> ~/Documents/...
+        display="~/${path#$HOME/}"
+    else
+        # ex: /usr/local/bin
+        display="$path"
+    fi
+
+    # 2. Séparer le préfixe (~ ou /) et le reste
+    if [[ "$display" == ~/* ]]; then
+        prefix="~"
+        rest="${display#~/}"    # ex: Documents/LocalGits/Proj
+    elif [[ "$display" == /* ]]; then
+        prefix="${WHITE}/${RESET}"
+        rest="${display#/}"     # ex: usr/local/bin
+    else
+        prefix=""
+        rest="$display"
+    fi
+
+    # 3. Split du reste sur /
+    local -a parts
+    parts=(${(s:/:)rest})
+    local count=${#parts[@]}
+
+    if (( count == 0 )); then
+        print -r -- "$prefix"
+        return
+    fi
+
+    local out="$prefix"
+
+    local i part
+    for i in {1..$count}; do
+        part="${parts[i]}"
+
+        # Ajouter le / (sauf si out est vide, mais là il ne l'est jamais)
+        if [[ -n "$out" ]]; then
+            out+="${AQUA}/${RESET}"
+        fi
+
+        # Dernier segment → jamais raccourci
+        if (( i == count )); then
+            out+="$part"
+        else
+            # Si plus de 2 dossiers au total ET nom > 6 caractères → xxx..
+            if (( count > 2 && ${#part} > 6 )); then
+                out+="${part[1,3]}${BLUE}..${RESET}"
+            else
+                out+="$part"
+            fi
+        fi
+    done
+
+    print -r -- "$out"
+}
+
+
+# --- Git Info Function ---
+git_prompt_custom() {
+    git rev-parse --is-inside-work-tree &>/dev/null || return
+
+    local user repo branch
+    user=$(git config user.name 2>/dev/null)
+    repo=$(basename "$(git rev-parse --show-toplevel 2>/dev/null)")
+    branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+
+    # Raccourci pour couleurs
+    local U="${UNDER}"
+    local N="${NO_UNDER}"
+    local CU="${GIT_USER_COLOR}"
+    local CR="${GIT_REPO_COLOR}"
+    local CB="${GIT_BRANCH_COLOR}"
+    local W="${WHITE}"
+    local R="${RESET}"
+
+    # Format final
+    echo "${W}| < ${U}${CU}${user}${W}:${CR}${repo}${W}/${CB}${branch}${W}${N} >${R}"
+}
+
+
+# Colors
+
+# Première ligne : [user] ➜ chemin
+PROMPT="
+${TIMEFMT}
+${ORANGE}[${WHITE}%n${ORANGE}] ${WHITE}➜  ${ORANGE}\$(shorten_path) ${WHITE}\$(git_prompt_custom)${RESET}
+${ORANGE}[${WHITE}$?${ORANGE}] >	${RESET}"
+
+# PROMPT='%F{208}[%n]%f %F{7}%~%f ➜ '
+
+export PATH="$HOME/.42header:$PATH"
+USER=zyks
+export USER
+MAIL=zyks@student.42.fr
+export MAIL
+USER=zyks
+export USER
+MAIL=zyks@student.42.fr
+export USER="tsignori"
+export MAIL="tsignori@student.42perpignan.fr"
+
+# Created by `pipx` on 2025-11-17 21:23:23
+export PATH="$PATH:/home/zyks/.local/bin"
+
+# Clear après CTRL-C
+TRPINT() {
+	BUFFER = ""
+	clear
+	return 130
+}
+
+# Clear apres CD
+_chpwd_last="$PWD"
+chpwd() {
+    if [[ "$PWD" != "" ]]; then
+        clear
+        _chpwd_last="$PWD"
+    fi
+}
+
