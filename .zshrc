@@ -21,8 +21,9 @@ alias n.="nvim ."
 alias ccf="cc -Wall -Wextra -Werror -o exe"
 alias gpt="tgpt"
 alias norminette="norminette -R CheckDefine"
-alias l="exa -l"
-alias la="exa -la"
+alias l="exa -l --icons"
+alias la="exa -la --icons"
+alias lt="exa --icons --tree"
 
 # COLORS
 
