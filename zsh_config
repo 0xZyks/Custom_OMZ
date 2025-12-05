@@ -142,34 +142,27 @@ git_prompt_custom() {
 # Colors
 
 # Première ligne : [user] ➜ chemin
-PROMPT="
-${TIMEFMT}
+PROMPT="${TIMEFMT}
 ${ORANGE}[${WHITE}%n${ORANGE}] ${WHITE}➜  ${ORANGE}\$(shorten_path) ${WHITE}\$(git_prompt_custom)${RESET}
 ${ORANGE}[${WHITE}$?${ORANGE}] >	${RESET}"
 
 # PROMPT='%F{208}[%n]%f %F{7}%~%f ➜ '
 
-export PATH="$HOME/.42header:$PATH"
-USER=zyks
-export USER
-MAIL=zyks@student.42.fr
-export MAIL
-USER=zyks
-export USER
-MAIL=zyks@student.42.fr
 export USER="tsignori"
 export MAIL="tsignori@student.42perpignan.fr"
 
 # Created by `pipx` on 2025-11-17 21:23:23
 export PATH="$PATH:/home/zyks/.local/bin"
 
-# Clear après CTRL-C
-TRPINT() {
-	BUFFER = ""
-	clear
-	return 130
-}
+## Ne pas afficher ^C quand on fait Ctrl+C
+stty -echoctl
 
+# Quand on reçoit un SIGINT (Ctrl+C), on clear l'écran
+#TRAPINT() {
+#  if [[ -o interactive ]]; then
+#    clear
+#  fi
+#}
 # Clear apres CD
 _chpwd_last="$PWD"
 chpwd() {
