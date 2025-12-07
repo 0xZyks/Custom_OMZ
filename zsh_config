@@ -24,6 +24,7 @@ alias norminette="norminette -R CheckDefine"
 alias l="eza -l --icons"
 alias la="eza -la --icons"
 alias lt="eza --icons --tree"
+alias n="nvim ."
 
 # COLORS
 
