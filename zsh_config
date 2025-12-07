@@ -45,27 +45,12 @@ NO_UNDER=$'%{\e[24m%}'
 # -- DISPLAY BASIC PROMPT
 
 # === PINGU ASCII ANIMÉ DANS LE PROMPT ===
-
-# État global : frame 0 → 3
-typeset -gi PENGU_STATE=0
-
-# Appelé avant chaque prompt : on passe au frame suivant
-pengu_precmd() {
-  PENGU_STATE=$(((PENGU_STATE + 1) % 4))
-}
-
-# Ajoute notre fonction au hook precmd
-precmd_functions+=("pengu_precmd")
-
-# Affiche un pingouin assis selon l'état
 pengu_prompt() {
       cat <<'EOF'
    ___
   ('v')
  //___\\
  (U___U)
- [Fluid]
-  
 EOF
 }
 
@@ -74,7 +59,7 @@ autoload -U colors && colors
 ## === CUSTOM PROMPT ===
 
 # Ligne heure
-local TIMEFMT="${ORANGE}[${GIT_USER_COLOR}%D{%H:%M:%S}${ORANGE}]${RESET}"
+local TIMEFMT="${WHITE}[${GIT_USER_COLOR}%D{%H:%M:%S}${WHITE}]${RESET}"
 
 # Short Path
 shorten_path() {
@@ -169,8 +154,9 @@ git_prompt_custom() {
 # Colors
 
 # Première ligne : [user] ➜ chemin
-PROMPT="${WHITE}\$(pengu_prompt)
-${TIMEFMT}
+PROMPT="${AQUA}\$(pengu_prompt)${RESET}
+
+${ORANGE}< ${BLUE}${TIMEFMT} ${ORANGE}| ${BLUE}Powered by Fluid ${ORANGE}>${RESET}
 ${ORANGE}[${WHITE}%n${ORANGE}] ${WHITE}➜  ${ORANGE}\$(shorten_path) ${WHITE}\$(git_prompt_custom)${RESET}
 ${ORANGE}[${WHITE}$?${ORANGE}] >	${RESET}"
 
