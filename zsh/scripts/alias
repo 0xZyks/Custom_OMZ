@@ -6,7 +6,7 @@
 #    By: tsignori <tsignori@student.42perpignan.fr  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/07 19:39:00 by tsignori          #+#    #+#              #
-#    Updated: 2025/12/07 22:36:49 by tsignori         ###   ########.fr        #
+#    Updated: 2025/12/08 15:52:22 by tsignori         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,13 +18,14 @@ alias zshcfg="nvim ~/.zshrc"
 alias dotfiles="cd ~/.dotfiles/config"
 
 # === SYSTEM
-alias c="clear"
+alias c='chpwd'
 alias l="eza -l --icons"
 alias la="eza -la --icons"
 alias lt="eza --icons --tree"
 alias std="sudo shutdown now"
 alias rb="sudo reboot"
 alias rmf="rm -rf"
+alias su="sudo -s"
 
 # === CODING
 alias ccf="cc -Wall -Wextra -Werror -o exe"
@@ -35,3 +36,4 @@ alias nv="nvim"
 # === APPS
 alias deezer="run_detached deezer-desktop"
 alias discord="run_detached vesktop"
+alias chatgpt="run_detached env WEBKIT_DISABLE_DMABUF_RENDERER=1 GDK_BACKEND=x11 chat-gpt"

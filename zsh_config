@@ -25,3 +25,5 @@ done
 
 # Created by `pipx` on 2025-11-17 21:23:23
 export PATH="$PATH:/home/zyks/.local/bin"
+
+chpwd

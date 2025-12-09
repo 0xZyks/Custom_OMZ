@@ -6,7 +6,7 @@
 #    By: tsignori <tsignori@student.42perpignan.fr  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/07 22:16:12 by tsignori          #+#    #+#              #
-#    Updated: 2025/12/07 22:17:39 by tsignori         ###   ########.fr        #
+#    Updated: 2025/12/08 10:48:49 by tsignori         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,8 @@
 # Clear after CD
 _chpwd_last="$PWD"
 chpwd() {
-    if [[ "$PWD" != "" ]]; then
-        clear
-        _chpwd_last="$PWD"
-    fi
+	clear
+	printf '%s' $'\e[38;2;149;176;255m'
+	bear_prompt
+	printf '%s\n' $'\e[0m'
 }

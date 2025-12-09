@@ -6,7 +6,7 @@
 #    By: tsignori <tsignori@student.42perpignan.fr  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/07 18:25:10 by tsignori          #+#    #+#              #
-#    Updated: 2025/12/07 22:38:04 by tsignori         ###   ########.fr        #
+#    Updated: 2025/12/08 15:47:20 by tsignori         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,6 @@
 # === PINGU ASCII ANIMÉ DANS LE PROMPT ===
 bear_prompt() {
       cat <<'EOF'
-
    c-c   ####| #|   #| #| #| ###|
   ('v')  #|    #|   #| #| #| #| #|
   o * o  ###|  #|   #| #| #| #| #|
@@ -125,8 +124,7 @@ git_prompt_custom() {
 # Colors
 
 # Première ligne : [user] ➜ chemin
-PROMPT="${AQUA}\$(bear_prompt)${RESET}
-
+PROMPT="
 ${ORANGE}< ${BLUE}${TIMEFMT} ${ORANGE}| ${BLUE}Powered by Fluid ${ORANGE}>${RESET}
 ${ORANGE}[${WHITE}%n${ORANGE}] ${WHITE}➜  ${ORANGE}\$(shorten_path) ${WHITE}\$(git_prompt_custom)${RESET}
 ${ORANGE}[${WHITE}$?${ORANGE}] >	${RESET}"
