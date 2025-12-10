@@ -6,7 +6,7 @@
 #    By: tsignori <tsignori@student.42perpignan.fr  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/07 18:25:10 by tsignori          #+#    #+#              #
-#    Updated: 2025/12/10 10:37:15 by tsignori         ###   ########.fr        #
+#    Updated: 2025/12/10 10:39:44 by tsignori         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -153,7 +153,7 @@ git_prompt_custom() {
     local R="${RESET}"
 
     # Format final
-    echo "${W}| < ${U}${CU}${user}${W}:${CR}${repo}${W}/${CB}${branch}${W}${N} >${R}"
+    echo "${W}| < $(git_sync_indicator) | ${U}${CU}${user}${W}:${CR}${repo}${W}/${CB}${branch}${W}${N} >${R}"
 }
 
 
@@ -161,7 +161,7 @@ git_prompt_custom() {
 
 # Première ligne : [user] ➜ chemin
 PROMPT="${ORANGE}< ${BLUE}${TIMEFMT} ${ORANGE}| ${BLUE}Powered by Fluid ${ORANGE}>${RESET}
-${ORANGE}[${WHITE}%n${ORANGE}] ${WHITE}➜  ${ORANGE}\$(shorten_path) ${WHITE}\$(git_prompt_custom) \$(git_sync_indicator)${RESET}
+${ORANGE}[${WHITE}%n${ORANGE}] ${WHITE}➜  ${ORANGE}\$(shorten_path) ${WHITE}\$(git_prompt_custom)${RESET}
 ${ORANGE}[${WHITE}$?${ORANGE}] >	${RESET}"
 
 # PROMPT='%F{208}[%n]%f %F{7}%~%f ➜ '
