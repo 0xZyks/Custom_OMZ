@@ -6,7 +6,7 @@
 #    By: tsignori <tsignori@student.42perpignan.fr  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/07 18:25:10 by tsignori          #+#    #+#              #
-#    Updated: 2025/12/10 10:39:44 by tsignori         ###   ########.fr        #
+#    Updated: 2026/01/01 21:17:22 by tsignori         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -97,43 +97,6 @@ shorten_path() {
     print -r -- "$out"
 }
 
-git_sync_indicator() {
-  # Si on n'est pas dans un repo git → rien
-  git rev-parse --is-inside-work-tree &>/dev/null || return
-
-  local dirty=0 ahead=0 behind=0
-
-  # 1. Untracked / modifs non commit ?
-  if [[ -n "$(git status --porcelain 2>/dev/null)" ]]; then
-    dirty=1
-  fi
-
-  # 2. Écart avec l'upstream (ahead / behind) ?
-  local upstream
-  upstream=$(git rev-parse --abbrev-ref '@{upstream}' 2>/dev/null) || upstream=""
-
-  if [[ -n "$upstream" ]]; then
-    # renvoie "A B" = A commits ahead, B behind
-    local ab
-    ab=$(git rev-list --left-right --count HEAD..."$upstream" 2>/dev/null) || ab=""
-    if [[ -n "$ab" ]]; then
-      ahead=${ab%% *}
-      behind=${ab##* }
-    fi
-  else
-    # pas d'upstream configuré → on considère que ça doit être poussé
-    # (tu peux mettre 0 si tu préfères le voir 'vert' dans ce cas)
-    ahead=1
-  fi
-
-  # Rouge si sale / en avance / en retard
-  if (( dirty || ahead > 0 || behind > 0 )); then
-    echo "${GIT_BAD}●${RESET}"
-  else
-    echo "${GIT_OK}●${RESET}"
-  fi
-}
-
 # --- Git Info Function ---
 git_prompt_custom() {
     git rev-parse --is-inside-work-tree &>/dev/null || return
@@ -153,7 +116,7 @@ git_prompt_custom() {
     local R="${RESET}"
 
     # Format final
-    echo "${W}| < $(git_sync_indicator) | ${U}${CU}${user}${W}:${CR}${repo}${W}/${CB}${branch}${W}${N} >${R}"
+    echo "${W}| < ${U}${CU}${user}${W}:${CR}${repo}${W}/${CB}${branch}${W}${N} >${R}"
 }
 
 
