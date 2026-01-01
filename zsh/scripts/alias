@@ -6,7 +6,7 @@
 #    By: tsignori <tsignori@student.42perpignan.fr  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/07 19:39:00 by tsignori          #+#    #+#              #
-#    Updated: 2025/12/08 15:52:22 by tsignori         ###   ########.fr        #
+#    Updated: 2025/12/10 19:22:10 by tsignori         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,3 +37,4 @@ alias nv="nvim"
 alias deezer="run_detached deezer-desktop"
 alias discord="run_detached vesktop"
 alias chatgpt="run_detached env WEBKIT_DISABLE_DMABUF_RENDERER=1 GDK_BACKEND=x11 chat-gpt"
+alias whatsapp="run_detached env WEBKIT_DISABLE_DMABUF_RENDERER=1 GDK_BACKEND=x11 wasistlos"
